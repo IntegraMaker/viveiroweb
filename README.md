@@ -7,3 +7,7 @@ python -m venv venv
 
 Em seguida instalar o django usando o comando 
 pip install django
+
+usuário para entrar: admin
+e-mail colocado: admin@gmail.com
+senha para entrar: 1234
