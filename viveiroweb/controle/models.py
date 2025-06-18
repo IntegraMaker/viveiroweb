@@ -15,3 +15,15 @@ class Planta(models.Model):
     def __str__(self):
         return self.nome
     
+class Reserva(models.Model):
+    id = models.AutoField(primary_key=True)
+    solicitante = models.CharField(max_length=250)
+    data = models.DateTimeField()
+    motivo = models.CharField(max_length= 250)
+    obs = models.CharField(max_length= 250, null=True, blank=True)
+    aceito = models.BooleanField(default=False)
+    email = models.EmailField()
+
+    def __str__(self):
+        return self.motivo
+    
