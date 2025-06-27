@@ -27,3 +27,9 @@ class Reserva(models.Model):
     def __str__(self):
         return self.motivo
     
+class acao_ensino(models.Model): #vai precisar de quem pediu a ação?
+    id = models.AutoField(primary_key=True) #data? motivo? etc...
+    tipo = models.CharField(max_length=250)
+
+    def __str__(self):
+        return self.tipo
