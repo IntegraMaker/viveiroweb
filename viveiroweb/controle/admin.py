@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Planta, Reserva
+from .models import Planta, Reserva, acao_ensino
 
 # Register your models here.
 @admin.register(Planta)
@@ -15,3 +15,9 @@ class ReservaAdmin(admin.ModelAdmin):
     search_fields = ('solicitante', 'data', 'motivo')
     list_filter = ('data',)
     ordering = ('data',)
+
+@admin.register(acao_ensino)
+class acao_ensinoAdmin(admin.ModelAdmin):
+    list_display = ('id', 'tipo')
+    search_fields = ('tipo',)
+    ordering = ('tipo',)
