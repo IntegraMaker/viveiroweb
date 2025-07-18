@@ -1,10 +1,6 @@
-.plantas_container {
-    background-color: rgb(0, 0, 0);
-    height: 100px;
-    width: 300px;
-}
-
-.plantas_container img{
-    height: 40px;
-    width: 40px;
+.informacoes_titulo {
+    background: linear-gradient(to right, rgb(69, 121, 73), rgb(202, 247, 204)); 
+    color: white; display: inline-block;
+    padding: 5px;
+    border-radius: 15px; 
 }
