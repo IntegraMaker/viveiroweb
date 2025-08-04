@@ -1,8 +1,8 @@
 from django.db import models
-
 # Create your models here.
 class Planta(models.Model):
-    id = models.AutoField(primary_key=True) 
+    id = models.AutoField(primary_key=True)
+    imagem = models.ImageField(upload_to='media/', null=True, blank=True) 
     nome= models.CharField(max_length=250, unique=True) #unico
     nomeclatura = models.CharField(max_length=250, unique=True) #unico
     familia = models.CharField(max_length=250)
