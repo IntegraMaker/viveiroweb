@@ -1,10 +1,11 @@
 from django.contrib import admin
+from django.db import models #upload de imagens
 from .models import Planta, Reserva, acao_ensino
 
 # Register your models here.
 @admin.register(Planta)
 class PlantaAdmin(admin.ModelAdmin):
-    list_display = ('id', 'nome', 'nomeclatura', 'familia', 'nutricao', 'regiao', 'nativa', 'manejo')
+    list_display = ('imagem', 'id', 'nome', 'nomeclatura', 'familia', 'nutricao', 'regiao', 'nativa', 'manejo')
     search_fields = ('nome', 'nomeclatura', 'familia','regiao')
     list_filter = ('nativa',)
     ordering = ('nome',)
