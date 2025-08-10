@@ -25,6 +25,8 @@ urlpatterns = [
     path('',  views.home, name='home'),
     path('formulario_uso_viveiro/', views.formulario_uso_viveiro, name='formulario_uso_viveiro'),
     path('enviar_reserva/', views.enviar_reserva, name='enviar_reserva'),
+    path('',  views.home, name='home'),
+    path('catalogo/', views.catalogo),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
