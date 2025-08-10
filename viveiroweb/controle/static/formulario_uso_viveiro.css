@@ -1,0 +1,16 @@
+body {
+    background-image: url('../static/background.png');   /*imagem de fundo*/
+    background-size: cover;         
+    background-position: center;   
+    background-repeat: no-repeat;
+}
+
+.formulario_viveiro {
+    border-radius: 20px; /* bordas arredondadas */
+    padding: 20px; /* espaçamento interno */
+    margin: 5% auto 0 auto; /* centraliza horizontalmente */
+    width: 40%; 
+    height: 10%;
+     background-color: rgba(255, 255, 255, 0.6);
+}
+  
