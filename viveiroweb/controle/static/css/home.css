@@ -18,9 +18,9 @@ body{
 
 .secao_abaixo{
     width: 100%;
-    height: 1200px;
+    /*height: 1200px;
     margin-top: 90px;
-    padding: 35px;
+    padding: 35px;*/
     display: flex;
     flex-wrap: wrap;
 
@@ -34,7 +34,7 @@ body{
 .parte_texto {
 
     width: 300px;
-    height: 250px;
+    /*height: 250px;*/
     word-wrap: break-word;
 }
 
@@ -42,8 +42,8 @@ body{
     background-color: rgba(74, 81, 74, 0.2);
     border-radius:  5px;
     display: flex;
-    margin-left: 35px;
-    margin-top: 20px;
+    /*margin-left: 35px;
+    margin-top: 20px;*/
 }
 
 .parte_texto p{
@@ -70,14 +70,23 @@ body{
 .rodape{
     background-color: #1a241a;
     width: 100%;
-    height: 400px;
-    padding: 75px;
+    /*height: 400px;*/
+    padding: 35px;
 
 }
 
 .rodape a{
     font-size: 15px;
     color: white;
-    margin-left: 150px;
+    /*margin-left: 150px;*/
     font-family: Arial, 'Times New Roman', Times, serif;
 }
+
+.custom-text {
+    color: white;
+    transition: color 0.3s ease;
+  }
+  
+  .custom-text:hover {
+    color: gray;
+  }
