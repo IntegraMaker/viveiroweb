@@ -12,8 +12,8 @@ class PlantaAdmin(admin.ModelAdmin):
 
 @admin.register(Reserva)
 class ReservaAdmin(admin.ModelAdmin):
-    list_display = ('id', 'solicitante', 'data', 'motivo', 'obs', 'aceito', 'email')
-    search_fields = ('solicitante', 'data', 'motivo')
+    list_display = ('id', 'nome', 'data', 'motivo', 'descricao', 'aceito', 'email', 'telefone')
+    search_fields = ('nome', 'data', 'motivo')
     list_filter = ('data',)
     ordering = ('data',)
 

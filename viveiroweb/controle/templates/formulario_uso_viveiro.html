@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+    {% load static %} 
   <head>
     <!-- Meta tags Obrigatórias -->
     <meta charset="utf-8">
@@ -8,14 +9,19 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css">
+    
 
-    <link rel="stylesheet" href="../static/formulario_uso_viveiro.css">
+   <link rel="stylesheet" href="{% static 'css/home.css' %}">
+    <link rel="stylesheet" href="{% static 'css/formulario_uso_viveiro.css' %}">
 
     <title>Viveiro de Mudas</title>
   </head>
   <body>
-        <form class="d-flex" role="search"> <!-- Barra de pesquisa -->
-          <img src="../static/logo.png" width="10%px" style="margin-left: 5%;">
+      
+
+
+      <form class="d-flex flex-column flex-md-row align-items-center" role="search"> <!-- Barra de pesquisa -->
+          <img src="../static/logo.png" width="200px" style="margin-left: 5%;">
           <div class="input-group mb-3" style="margin-left: 10%; margin-top: 40px; width: 50%;">
             <input type="text" class="form-control" placeholder="Buscar por nome" aria-label="Buscar por nome" aria-describedby="button-addon2">
             <button class="btn btn-secondary" type="submit">
@@ -28,53 +34,91 @@
         <div class="container-fluid">
           <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
             <li class="nav-item">
-              <a class="nav-link active text-white fw-bold" aria-current="page" href="/">Catálogo de Plantas</a>
+              <a class="nav-link active custom-text fw-bold text-white" aria-current="page" href="/catalogo">Catálogo de Plantas</a>
             </li>
             <li class="nav-item mx-4">
-              <a class="nav-link text-white" href="#">Manejo de Plantas</a>
+              <a class="nav-link custom-text text-white" href="#">Manejo de Plantas</a>
             </li>
             <li class="nav-item mx-4">
-              <a class="nav-link text-white" href="#">Técnicos</a>
+              <a class="nav-link custom-text text-white" href="#">Técnicos</a>
             </li>
-            <li class="nav-item mx-4">
-              <a class="nav-link text-white" href="formulario_uso_viveiro/">Reservar</a>
+             <li class="nav-item mx-4">
+              <a class="nav-link custom-text text-white" href="/formulario_uso_viveiro">Reserva do Viveiro</a>
             </li>
           </ul>
         </div>
       </nav> 
 
-    <div class="formulario_viveiro">
+
+       <main class="container my-5 flex-grow-1 d-flex justify-content-center align-items-center">
+    <div class="formulario_viveiro shadow-lg w-100 p-4" style="max-width:500px;">
         <br>
-        <h2> Reservar</h2>
-    <form action="enviar_reserva/" method="get">
-        <div class="mb-3">
-            <input type="text" class="form-control " placeholder="nome " aria-label="nome" aria-describedby="button-addon2" name="nome">
+        <h2 class="text-center mb-4"> Reservar</h2>
+    <form action="{% url 'enviar_reserva' %}" method="get">
+        <div class="form-group">
+            <input type="text" class="form-control  form-control-lg" placeholder="nome " aria-label="nome" aria-describedby="button-addon2" name="nome" required>
         </div>
-        <div class="mb-3">
-            <input type="text" class="form-control " placeholder="e-mail" aria-label="e-mail" aria-describedby="button-addon2" name="email">
+        <div class="form-group">
+            <input type="text" class="form-control  form-control-lg" placeholder="e-mail" aria-label="e-mail" aria-describedby="button-addon2" name="email" required>
         </div>
-        <div class="mb-3">
-            <input type="text" class="form-control " placeholder="telefone" aria-label="telefone" aria-describedby="button-addon2" name="telefone">
+        <div class="form-group">
+            <input type="text" class="form-control  form-control-lg" placeholder="telefone" aria-label="telefone" aria-describedby="button-addon2" name="telefone" required>
         </div>
        <div class="input-group mb-3 ">
-            <select class="form-select form-control-sm text-muted w-100" id="inputGroupSelect02" name="motivo">
+            <select class="form-select form-control-lg text-muted w-100" id="inputGroupSelect02" name="motivo" required>
                 <option selected class="text-muted">motivo da solicitação</option>
-                <option value="1" class="text-dark">visita técnica</option>
-                <option value="2" class="text-dark">projeto de pesquisa</option>
-                <option value="3" class="text-dark">aula prática</option>
+                <option value="visita técnica" class="text-dark">visita técnica</option>
+                <option value="projeto de pesquisa" class="text-dark">projeto de pesquisa</option>
+                <option value="aula prática" class="text-dark">aula prática</option>
             </select>
         </div>
-        <div class="mb-3">
-            <label for="data" class="form-label ">Escolha uma data para a reserva</label>
-            <input type="date" class="form-control " id="data" name="data">
+         <div class="form-group">
+            <input type="text" class="form-control  form-control-lg" placeholder="Descrição da atividade" aria-label="Descrição da atividade" aria-describedby="button-addon2" name="descricao" required>
         </div>
-        <div class="text-right">
-            <button type="submit"  class="btn btn-primary">Enviar</button>
+        <div class="input-group input-group-lg"> <!-- deixa o campo maior -->
+        <div class="input-group-prepend">
+          <span class="input-group-text"><i class="bi bi-calendar3"></i></span>
+        </div>
+        <input type="text" id="calendario" name="data" class="form-control" placeholder="aaaa-mm-dd" autocomplete="off" required>
+      </div>
+        <div class="text-center">
+            <button type="submit"  class="btn btn-reservar px-5 py-2">Enviar</button>
         </div>
     </form>
-    </div>
 
+    </main>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap-datepicker/dist/locales/bootstrap-datepicker.pt-BR.min.js"></script>
+
+    <script>
+$(document).ready(function() { 
+    $.getJSON("{% url 'dias_ocupados' %}", function(data) {
+        let ocupados = data.ocupados;
+
+        $('#calendario').datepicker({
+            format: 'yyyy-mm-dd',
+            language: 'pt-BR',
+            todayHighlight: true,
+            beforeShowDay: function(date) {
+                let d = date.toISOString().split('T')[0];
+                if (ocupados.includes(d)) {
+                    return {
+                        enabled: false,
+                        classes: 'bg-danger  text-center text-white',
+                        tooltip: 'Data já reservada'
+                    };
+                }
+                return true;
+            }
+        }); 
+    });
+    
+});
+
+</script>
   </body>

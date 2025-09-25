@@ -27,6 +27,7 @@ urlpatterns = [
     path('enviar_reserva/', views.enviar_reserva, name='enviar_reserva'),
     path('',  views.home, name='home'),
     path('catalogo/', views.catalogo),
+    path('dias_ocupados/', views.dias_ocupados, name='dias_ocupados'),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
