@@ -23,7 +23,11 @@ from django.conf.urls.static import static #Para a criação do padrão de URL d
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',  views.home, name='home'),
+    path('formulario_uso_viveiro/', views.formulario_uso_viveiro, name='formulario_uso_viveiro'),
+    path('enviar_reserva/', views.enviar_reserva, name='enviar_reserva'),
+    path('',  views.home, name='home'),
     path('catalogo/', views.catalogo),
+    path('dias_ocupados/', views.dias_ocupados, name='dias_ocupados'),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

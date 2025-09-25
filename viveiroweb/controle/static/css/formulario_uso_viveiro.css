@@ -1,0 +1,74 @@
+body {
+    background-image: url('/static/background.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    min-height: 100vh;
+
+    display: flex;
+    flex-direction: column;
+}
+
+/* Centralizar o card verticalmente */
+.formulario_viveiro {
+    border-radius: 20px;
+    padding: 30px;
+    margin: auto; /* centraliza vertical e horizontal */
+    background-color: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(5px); /* efeito vidro fosco */
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+/* Inputs mais elegantes */
+.form-control, .form-select {
+    border-radius: 10px;
+    border: 1px solid #ccc;
+}
+
+/* Botão personalizado */
+.btn-reservar {
+    margin-top: 10px;
+    background-color: #28a745 !important;
+    color: white ;
+    font-weight: bold;
+    border-radius: 12px;
+    
+}
+
+
+
+.datepicker-dropdown { /*  calendário */ 
+  padding: .75rem; /* espaçamento interno */
+}
+
+.datepicker table {
+  width: 100%;
+}
+
+.datepicker td, .datepicker th {
+  width: 3rem;     /* largura das células */
+  height: 3rem;    /* altura das células */
+  font-size: 1rem; /* tamanho do texto dos dias */
+  line-height: 3rem;
+}
+
+.datepicker .datepicker-switch,
+.datepicker .prev,
+.datepicker .next {
+  font-size: 1.1rem; 
+  padding: .25rem .5rem; /* espaçamento interno entre os botões */
+}
+
+.datepicker .day:hover {
+  border-radius: .5rem;
+  cursor: pointer;
+}
+
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .formulario_viveiro {
+        width: 90%;
+        padding: 20px;
+    }
+}

@@ -1,6 +1,7 @@
 body{
     width: auto;
     height: auto;
+
 }
 
 .informacoes_titulo {
@@ -83,7 +84,7 @@ body{
 }
 
 .custom-text {
-    color: white;
+    color: white ;
     transition: color 0.3s ease;
   }
   
