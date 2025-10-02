@@ -15,130 +15,133 @@
 </head>
 <body>
     <div class="p-3 mb-2" style="background-image: url('{% static 'background.png' %}'); background-size: cover; background-position:center;"> <!-- Plano de fundo -->
-    <form class="d-flex flex-column flex-md-row align-items-center" role="search" action="{% url 'pesquisar' %}"> <!-- Barra de pesquisa -->
-          <img src="../static/logo.png" width="200px" style="margin-left: 5%; width: 10%">
-          <div class="input-group mb-3" style="margin-left: 10%; margin-top: 40px;">
-            <input name="pesquisa" type="text" class="form-control" placeholder="Buscar por nome" aria-label="Buscar por nome" aria-describedby="button-addon2">
-            <button class="btn btn-secondary" type="submit">
-                <i class="bi bi-search" ></i> <!-- requer Bootstrap Icons -->
-            </button>
-          </div>
-      </form>
-    <br>
-    <nav class="navbar navbar-expand-lg" style="background-color: rgba(176, 226, 176, 0.6); border-radius: 10px;"> <!-- Container com links para outras páginas -->
-        <div class="container-fluid">
-            <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+        <form class="d-flex flex-column flex-md-row align-items-center" role="search" action="{% url 'pesquisar' %}"> <!-- Barra de pesquisa -->
+              <img src="../static/logo.png" width="200px" style="margin-left: 5%;">
+              <div class="input-group mb-3" style="margin-left: 10%; margin-top: 40px; width: 50%;">
+                <input name="pesquisa" type="text" class="form-control" placeholder="Buscar por nome" aria-label="Buscar por nome" aria-describedby="button-addon2">
+                <button class="btn btn-secondary" type="submit">
+                    <i class="bi bi-search" ></i> <!-- requer Bootstrap Icons -->
+                </button>
+              </div>
+        </form>
+        <br>
+        <nav class="navbar navbar-expand-lg" style="background-color: rgba(176, 226, 176, 0.6); border-radius: 10px;"> <!-- Container com links para outras páginas -->
+            <div class="container-fluid">
+              <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link active text-white fw-bold" aria-current="page" href="/catalogo">Catálogo de Plantas</a>
+                  <a class="nav-link active custom-text fw-bold" aria-current="page" href="/catalogo">Catálogo de Plantas</a>
                 </li>
                 <li class="nav-item mx-4">
-                    <a class="nav-link text-white" href="#">Manejo de Plantas</a>
+                  <a class="nav-link custom-text" href="#">Manejo de Plantas</a>
                 </li>
                 <li class="nav-item mx-4">
-                    <a class="nav-link text-white" href="#">Técnicos</a>
+                  <a class="nav-link custom-text" href="#">Técnicos</a>
                 </li>
-            </ul>
-        </div>
-    </nav>
-    <br>
-    <br>
-    <a href="/" style="margin-top: 50px; color: white; margin-left: 50px;"> < Voltar para a página principal</a>
-    <h1 style="color: white; margin-left: 50px;">Exibindo {{ plantas_tamanho }} plantas</h1>
+                 <li class="nav-item mx-4">
+                  <a class="nav-link custom-text" href="/formulario_uso_viveiro">Reserva do Viveiro</a>
+                </li>
+              </ul>
+            </div>
+        </nav>
+        <br>
+        <br>
+        <a href="/" style="margin-top: 50px; color: white; margin-left: 50px;"> < Voltar para a página principal</a>
+        <h1 style="color: white; margin-left: 50px;">Exibindo {{ plantas_tamanho }} plantas</h1>
 
-    <!-- Reutilização da classe "secao_abaixo" da página inicial -->
-    <div class="secao_abaixo" style="margin-top: 10px; margin-left: 5%;  height: auto; width: auto;">
-        {% for Planta in plantas %}
-        <div class="row row-cols-1 row-cols-md-3 g-4">
-            <div class="col" style="padding: 25px;">
-                <div class="card h-100" style="background-color: rgba(255, 255, 255, 0.3);">
-                  <img src="{{Planta.imagem.url}}" class="card-img-top" alt="..." style="width: 312px; height: 180px; object-fit: cover;">
-                  <div class="card-body">
-                    <h5 class="card-title">{{Planta.nomeclatura}}</h5>
-                    <p class="card-text">{{Planta.nome}}</p>
-                  </div>
-                  <div class="card-footer">
-                    <small class="text-muted">
-                      <a href="#"
-                         class="btn btn-sm btn-info"
-                         style="background-color: rgba(255, 255, 255, 0.7); color: black; border: none;"
-                         data-toggle="modal"
-                         data-target="#plantaModal{{Planta.id}}">
-                         Clique aqui para saber mais!
-                      </a>
-                    </small>
-                  </div>
-                </div>
-
-                 <!-- MODAL para exibir as informaçoes sem carregar novas páginas -->
-                <div class="modal fade" id="plantaModal{{Planta.id}}" tabindex="-1" role="dialog" aria-labelledby="plantaModalLabel{{Planta.id}}" aria-hidden="true">
-                  <div class="modal-dialog modal-lg" role="document">
-                    <div class="modal-content" style="background-color: rgba(255,255,255,0.95); border-radius: 12px; box-shadow: 0 8px 20px rgba(0,0,0,0.2);">
-
-                      <!-- Cabeçalho -->
-                      <div class="modal-header">
-                        <h5 class="modal-title" id="plantaModalLabel{{Planta.id}}">
-                          {{Planta.nomeclatura}} <small class="text-muted">({{Planta.nome}})</small>
-                        </h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
-                          <span aria-hidden="true">&times;</span>
-                        </button>
+        <!-- Reutilização da classe "secao_abaixo" da página inicial -->
+        <div class="secao_abaixo" style="margin-top: 10px; margin-left: 5%;  height: auto; width: auto;">
+            {% for Planta in plantas %}
+            <div class="row row-cols-1 row-cols-md-3 g-4">
+                <div class="col" style="padding: 25px;">
+                    <div class="card h-100" style="background-color: rgba(255, 255, 255, 0.3);">
+                      <img src="{{Planta.imagem.url}}" class="card-img-top" alt="..." style="width: 312px; height: 180px; object-fit: cover;">
+                      <div class="card-body">
+                        <h5 class="card-title">{{Planta.nomeclatura}}</h5>
+                        <p class="card-text">{{Planta.nome}}</p>
                       </div>
-
-                      <!-- Corpo -->
-                      <div class="modal-body">
-                        {% if Planta.imagem %}
-                          <img src="{{Planta.imagem.url}}" class="img-fluid mb-3 rounded" alt="{{Planta.nomeclatura}}">
-                        {% endif %}
-
-                        <ul class="list-group list-group-flush">
-                          <li class="list-group-item"><b>Nome Científico:</b> {{Planta.nomeclatura}}</li>
-                          <li class="list-group-item"><b>Nome Popular:</b> {{Planta.nome}}</li>
-                          <li class="list-group-item"><b>Família:</b> {{Planta.familia}}</li>
-                          <li class="list-group-item"><b>Nutrição:</b> {{Planta.nutricao}}</li>
-                          <li class="list-group-item"><b>Região:</b> {{Planta.regiao}}</li>
-                          <li class="list-group-item">
-                            <b>Nativa:</b>
-                            {% if Planta.nativa %}
-                              ✅ Sim
-                            {% else %}
-                              ❌ Não
-                            {% endif %}
-                          </li>
-                          <li class="list-group-item">
-                            <b>Manejo:</b>
-                            {% if Planta.manejo %}
-                              <a href="{{Planta.manejo}}" target="_blank" class="btn btn-sm btn-outline-primary ml-2">Ver Manejo</a>
-                            {% else %}
-                              Não informado
-                            {% endif %}
-                          </li>
-                        </ul>
+                      <div class="card-footer">
+                        <small class="text-muted">
+                          <a href="#"
+                             class="btn btn-sm btn-info"
+                             style="background-color: rgba(255, 255, 255, 0.7); color: black; border: none;"
+                             data-toggle="modal"
+                             data-target="#plantaModal{{Planta.id}}">
+                             Clique aqui para saber mais!
+                          </a>
+                        </small>
                       </div>
-
-                      <!-- Rodapé -->
-                      <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                      </div>
-
                     </div>
-                  </div>
+
+                     <!-- MODAL para exibir as informaçoes sem carregar novas páginas -->
+                    <div class="modal fade" id="plantaModal{{Planta.id}}" tabindex="-1" role="dialog" aria-labelledby="plantaModalLabel{{Planta.id}}" aria-hidden="true">
+                      <div class="modal-dialog modal-lg" role="document">
+                        <div class="modal-content" style="background-color: rgba(255,255,255,0.95); border-radius: 12px; box-shadow: 0 8px 20px rgba(0,0,0,0.2);">
+
+                          <!-- Cabeçalho -->
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="plantaModalLabel{{Planta.id}}">
+                              {{Planta.nomeclatura}} <small class="text-muted">({{Planta.nome}})</small>
+                            </h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+
+                          <!-- Corpo -->
+                          <div class="modal-body">
+                            {% if Planta.imagem %}
+                              <img src="{{Planta.imagem.url}}" class="img-fluid mb-3 rounded" alt="{{Planta.nomeclatura}}">
+                            {% endif %}
+
+                            <ul class="list-group list-group-flush">
+                              <li class="list-group-item"><b>Nome Científico:</b> {{Planta.nomeclatura}}</li>
+                              <li class="list-group-item"><b>Nome Popular:</b> {{Planta.nome}}</li>
+                              <li class="list-group-item"><b>Família:</b> {{Planta.familia}}</li>
+                              <li class="list-group-item"><b>Nutrição:</b> {{Planta.nutricao}}</li>
+                              <li class="list-group-item"><b>Região:</b> {{Planta.regiao}}</li>
+                              <li class="list-group-item">
+                                <b>Nativa:</b>
+                                {% if Planta.nativa %}
+                                  ✅ Sim
+                                {% else %}
+                                  ❌ Não
+                                {% endif %}
+                              </li>
+                              <li class="list-group-item">
+                                <b>Manejo:</b>
+                                {% if Planta.manejo %}
+                                  <a href="{{Planta.manejo}}" target="_blank" class="btn btn-sm btn-outline-primary ml-2">Ver Manejo</a>
+                                {% else %}
+                                  Não informado
+                                {% endif %}
+                              </li>
+                            </ul>
+                          </div>
+
+                          <!-- Rodapé -->
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                          </div>
+
+                        </div>
+                      </div>
+                    </div>
                 </div>
             </div>
+            {% endfor %}
         </div>
-        {% endfor %}
-    </div>
 
 
 
 
 
-    <div class="rodape">
-        <a href="..">Sobre nós</a>
-        <br><br>
-        <a href="..">Doe para o viveiro</a>
-        <br><br>
-        <a href="..">Site IFPB</a>
-    </div>
+        <div class="rodape">
+            <a href="..">Sobre nós</a>
+            <br><br>
+            <a href="..">Doe para o viveiro</a>
+            <br><br>
+            <a href="..">Site IFPB</a>
+        </div>
 
 
     </div>

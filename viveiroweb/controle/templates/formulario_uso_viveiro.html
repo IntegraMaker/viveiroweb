@@ -20,10 +20,10 @@
       
 
 
-      <form class="d-flex flex-column flex-md-row align-items-center" role="search"> <!-- Barra de pesquisa -->
+      <form class="d-flex flex-column flex-md-row align-items-center" role="search" action="{% url 'pesquisar' %}"> <!-- Barra de pesquisa -->
           <img src="../static/logo.png" width="200px" style="margin-left: 5%;">
           <div class="input-group mb-3" style="margin-left: 10%; margin-top: 40px; width: 50%;">
-            <input type="text" class="form-control" placeholder="Buscar por nome" aria-label="Buscar por nome" aria-describedby="button-addon2">
+            <input name="pesquisa" type="text" class="form-control" placeholder="Buscar por nome" aria-label="Buscar por nome" aria-describedby="button-addon2">
             <button class="btn btn-secondary" type="submit">
                 <i class="bi bi-search" ></i> <!-- requer Bootstrap Icons -->
             </button>
@@ -47,7 +47,9 @@
             </li>
           </ul>
         </div>
-      </nav> 
+      </nav>
+      <br>
+      <a href="/" style="margin-top: 50px; color: white; margin-left: 50px;"> < Voltar para a página principal</a>
 
 
        <main class="container my-5 flex-grow-1 d-flex justify-content-center align-items-center">

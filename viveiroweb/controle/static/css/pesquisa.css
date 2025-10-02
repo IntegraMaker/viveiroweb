@@ -1,0 +1,9 @@
+.nao_encontrado_espaco{
+    height: 100vh;
+    width: auto;
+}
+
+.nao_encontrado_espaco img{
+    width: 85%;
+    height: 30%;
+}
