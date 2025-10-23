@@ -21,7 +21,7 @@
   <body>
     <div class="p-3 mb-2" style="background-image: url('{% static 'background.png' %}'); background-size: cover; background-position:center;"> <!-- Plano de fundo -->
       <form class="d-flex flex-column flex-md-row align-items-center" role="search" action="{% url 'pesquisar' %}"> <!-- Barra de pesquisa -->
-          <img src="../static/logo.png" width="200px" style="margin-left: 5%;">
+          <a href="/" style="margin-left: 5%;"><img src="../static/logo.png" width="200px"></a>
           <div class="input-group mb-3" style="margin-left: 10%; margin-top: 40px; width: 50%;">
             <input name="pesquisa" type="text" class="form-control" placeholder="Buscar por nome" aria-label="Buscar por nome" aria-describedby="button-addon2">
             <button class="btn btn-secondary" type="submit">
@@ -54,7 +54,7 @@
           {% for planta in plantas|slice:":3" %}
             <div class="carousel-item {% if forloop.counter == 1 %}active{% endif %} "> <!-- Sem altura e largura fixas -->
               <div class="d-flex flex-column flex-md-row align-items-center justify-content-center">
-                <div class="card mb-3" style="width: 80%; background-color: rgba(255, 255, 255, 0.1); margin-top: 10px; ">
+                <div class="card mb-3" style="width: 80%; background-color: rgba(255, 255, 255, 0.2); margin-top: 10px; ">
                   <div class="row g-0">
                     <div class="col-md-4">
                       <img src="{{planta.imagem.url}}" class="img-fluid rounded-start" alt="..." style="height: 400px; width: 500px; object-fit: cover;">
@@ -76,13 +76,15 @@
                     </div>
                   </div>
                 </div>
-                <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="plantaModalLabel{{planta.id}}" aria-hidden="true">
+                <div class="modal fade" id="plantaModal{{Planta.id}}" tabindex="-1" role="dialog" aria-labelledby="plantaModalLabel{{Planta.id}}" aria-hidden="true">
                   <div class="modal-dialog modal-lg" role="document">
-                    <div class="modal-content" style="background-color: rgba(255,255,255,0.9);">
+                    <div class="modal-content" style="background-color: rgba(255,255,255,0.95); border-radius: 12px; box-shadow: 0 8px 20px rgba(0,0,0,0.2);">
 
                       <!-- Cabeçalho -->
                       <div class="modal-header">
-                        <h5 class="modal-title">{{planta.nomeclatura}}</h5>
+                        <h5 class="modal-title" id="plantaModalLabel{{Planta.id}}">
+                          {{Planta.nomeclatura}} <small class="text-muted">({{Planta.nome}})</small>
+                        </h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
                           <span aria-hidden="true">&times;</span>
                         </button>
@@ -90,10 +92,34 @@
 
                       <!-- Corpo -->
                       <div class="modal-body">
-                        <img src="{{planta.imagem.url}}" class="img-fluid mb-3" alt="{{planta.nomeclatura}}">
-                        <p><b>Nome Popular:</b> {{planta.nome}}</p>
-                        <p><b>Família:</b> {{planta.familia}}</p>
-                        <p><b>Descrição:</b> {{planta.descricao}}</p>
+                        {% if Planta.imagem %}
+                          <img src="{{Planta.imagem.url}}" class="img-fluid mb-3 rounded" alt="{{Planta.nomeclatura}}">
+                        {% endif %}
+
+                        <ul class="list-group list-group-flush">
+                          <li class="list-group-item"><b>Nome Científico:</b> {{Planta.nomeclatura}}</li>
+                          <li class="list-group-item"><b>Nome Popular:</b> {{Planta.nome}}</li>
+                          <li class="list-group-item"><b>Família:</b> {{Planta.familia}}</li>
+                          <li class="list-group-item"><b>Nutrição:</b> {{Planta.nutricao}}</li>
+                          <li class="list-group-item"><b>Região:</b> {{Planta.regiao}}</li>
+                          <li class="list-group-item">
+                            <b>Nativa:</b>
+                            {% if Planta.nativa %}
+                              ✅ Sim
+                            {% else %}
+                              ❌ Não
+                            {% endif %}
+                          </li>
+                          <li class="list-group-item">
+                            <b>Manejo:</b>
+                             <br>
+                            {% if Planta.manejo %}
+                            <iframe width="560" height="315" src="{{Planta.manejo}}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                            {% else %}
+                              Não informado
+                            {% endif %}
+                          </li>
+                        </ul>
                       </div>
 
                       <!-- Rodapé -->
@@ -104,7 +130,6 @@
                     </div>
                   </div>
                 </div>
-
               </div>
             </div>
           {% endfor %}
@@ -184,8 +209,9 @@
                           </li>
                           <li class="list-group-item">
                             <b>Manejo:</b>
+                             <br>
                             {% if Planta.manejo %}
-                              <a href="{{Planta.manejo}}" target="_blank" class="btn btn-sm btn-outline-primary ml-2">Ver Manejo</a>
+                            <iframe width="560" height="315" src="{{Planta.manejo}}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
                             {% else %}
                               Não informado
                             {% endif %}
