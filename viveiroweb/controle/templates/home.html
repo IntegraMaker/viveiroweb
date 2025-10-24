@@ -20,10 +20,10 @@
   </head>
   <body>
     <div class="p-3 mb-2" style="background-image: url('{% static 'background.png' %}'); background-size: cover; background-position:center;"> <!-- Plano de fundo -->
-      <form class="d-flex flex-column flex-md-row align-items-center" role="search"> <!-- Barra de pesquisa -->
-          <img src="../static/logo.png" width="200px" style="margin-left: 5%;">
+      <form class="d-flex flex-column flex-md-row align-items-center" role="search" action="{% url 'pesquisar' %}"> <!-- Barra de pesquisa -->
+          <a href="/" style="margin-left: 5%;"><img src="../static/logo.png" width="200px"></a>
           <div class="input-group mb-3" style="margin-left: 10%; margin-top: 40px; width: 50%;">
-            <input type="text" class="form-control" placeholder="Buscar por nome" aria-label="Buscar por nome" aria-describedby="button-addon2">
+            <input name="pesquisa" type="text" class="form-control" placeholder="Buscar por nome" aria-label="Buscar por nome" aria-describedby="button-addon2">
             <button class="btn btn-secondary" type="submit">
                 <i class="bi bi-search" ></i> <!-- requer Bootstrap Icons -->
             </button>
@@ -35,9 +35,6 @@
           <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
             <li class="nav-item">
               <a class="nav-link active custom-text fw-bold" aria-current="page" href="/catalogo">Catálogo de Plantas</a>
-            </li>
-            <li class="nav-item mx-4">
-              <a class="nav-link custom-text" href="#">Manejo de Plantas</a>
             </li>
             <li class="nav-item mx-4">
               <a class="nav-link custom-text" href="#">Técnicos</a>
@@ -60,19 +57,80 @@
           {% for planta in plantas|slice:":3" %}
             <div class="carousel-item {% if forloop.counter == 1 %}active{% endif %} "> <!-- Sem altura e largura fixas -->
               <div class="d-flex flex-column flex-md-row align-items-center justify-content-center">
-                <div class="d-flex flex-column flex-md-row align-items-center">
-                  <!-- Imagem responsiva -->
-                  <img src="{{ planta.imagem.url }}" alt="{{ planta.nome }}" class="img-fluid" style="max-height: 400px; width: auto;">
-            
-                  <!-- Nome ao lado -->
-                  <div class="text-white rounded p-3 mt-3 mt-md-0 ml-md-3" style="min-width: 250px;">
-                    <div class="informacoes_titulo">
-                      <h2>Informações</h2>
+                <div class="card mb-3" style="width: 80%; background-color: rgba(255, 255, 255, 0.2); margin-top: 10px; ">
+                  <div class="row g-0">
+                    <div class="col-md-4">
+                      <img src="{{planta.imagem.url}}" class="img-fluid rounded-start" alt="..." style="height: 400px; width: 500px; object-fit: cover;">
                     </div>
-                    <h5>Nome Científico: {{ planta.nomeclatura }}</h5>
-                    <h3>Nome popular: {{ planta.nome }}</h3>
-                    <h5>{{ planta.familia }}</h5>
-                    <a href=".." style="color: black; text-decoration: underline; font-style: italic;">Ler mais sobre esta planta...</a>
+                    <div class="col-md-8">
+                      <div class="card-body">
+                        <h5 class="card-title" style="font-size: 35px;">{{planta.nomeclatura}}</h5>
+                        <p class="card-text">{{planta.nome}}</p>
+                        <small class="text-muted">
+                          <a href="#"
+                             class="btn btn-sm btn-info"
+                             style="background-color: rgba(255, 255, 255, 0.7); color: black; border: none;"
+                             data-toggle="modal"
+                             data-target="#plantaModal{{planta.id}}">
+                             Clique aqui para saber mais!
+                          </a>
+                        </small>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="modal fade" id="plantaModal{{Planta.id}}" tabindex="-1" role="dialog" aria-labelledby="plantaModalLabel{{Planta.id}}" aria-hidden="true">
+                  <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content" style="background-color: rgba(255,255,255,0.95); border-radius: 12px; box-shadow: 0 8px 20px rgba(0,0,0,0.2);">
+
+                      <!-- Cabeçalho -->
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="plantaModalLabel{{Planta.id}}">
+                          {{Planta.nomeclatura}} <small class="text-muted">({{Planta.nome}})</small>
+                        </h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+
+                      <!-- Corpo -->
+                      <div class="modal-body">
+                        {% if Planta.imagem %}
+                          <img src="{{Planta.imagem.url}}" class="img-fluid mb-3 rounded" alt="{{Planta.nomeclatura}}">
+                        {% endif %}
+
+                        <ul class="list-group list-group-flush">
+                          <li class="list-group-item"><b>Nome Científico:</b> {{Planta.nomeclatura}}</li>
+                          <li class="list-group-item"><b>Nome Popular:</b> {{Planta.nome}}</li>
+                          <li class="list-group-item"><b>Família:</b> {{Planta.familia}}</li>
+                          <li class="list-group-item"><b>Nutrição:</b> {{Planta.nutricao}}</li>
+                          <li class="list-group-item"><b>Região:</b> {{Planta.regiao}}</li>
+                          <li class="list-group-item">
+                            <b>Nativa:</b>
+                            {% if Planta.nativa %}
+                              ✅ Sim
+                            {% else %}
+                              ❌ Não
+                            {% endif %}
+                          </li>
+                          <li class="list-group-item">
+                            <b>Manejo:</b>
+                             <br>
+                            {% if Planta.manejo %}
+                            <iframe width="560" height="315" src="{{Planta.manejo}}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                            {% else %}
+                              Não informado
+                            {% endif %}
+                          </li>
+                        </ul>
+                      </div>
+
+                      <!-- Rodapé -->
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                      </div>
+
+                    </div>
                   </div>
                 </div>
               </div>
@@ -91,29 +149,93 @@
         </a>
       </div>
 
-         <!-- Começo da exibição (des)ordenada abaixo do carrossel -->
+      <!-- Começo da exibição (des)ordenada abaixo do carrossel -->
         <div class="secao_abaixo rounded align-items-center justify-content-center">
             {% for Planta in plantas %}
-            <div class="planta_abaixo  p-3 mt-3 mb-3 mt-md-0 ml-md-3" style="min-width: 250px;">
-                <div class="parte_imagem">
-                    <img src="{{ Planta.imagem.url }}" class="img-fluid" style="max-height: 400px; width: auto;">
 
+                <div class="row row-cols-1 row-cols-md-3 g-4">
+                    <div class="col" style="padding: 25px;">
+                        <div class="card h-100" style="background-color: rgba(255, 255, 255, 0.3);">
+                          <img src="{{Planta.imagem.url}}" class="card-img-top" alt="..." style="width: 312px; height: 180px; object-fit: cover;">
+                          <div class="card-body">
+                            <h5 class="card-title">{{Planta.nomeclatura}}</h5>
+                            <p class="card-text">{{Planta.nome}}</p>
+                          </div>
+                          <div class="card-footer">
+                            <small class="text-muted">
+                              <a href="#"
+                                 class="btn btn-sm btn-info"
+                                 style="background-color: rgba(255, 255, 255, 0.7); color: black; border: none;"
+                                 data-toggle="modal"
+                                 data-target="#plantaModal{{Planta.id}}">
+                                 Clique aqui para saber mais!
+                              </a>
+                            </small>
+                          </div>
+                        </div>
+                      </div>
                 </div>
-                <div class="parte_texto ">
-                    <p> {{ Planta.nome }} </p>
-                    <a> {{ Planta.nomeclatura }}</a>
-                    <br>
-                    <br>
-                    <br>
-                    <a> {{ Planta.regiao }}</a>
-                    <br>
-                    <a href=".." style="color: black ;text-decoration: underline; font-style: italic;">Ler mais sobre esta planta...</a>
+
+               <div class="modal fade" id="plantaModal{{Planta.id}}" tabindex="-1" role="dialog" aria-labelledby="plantaModalLabel{{Planta.id}}" aria-hidden="true">
+                  <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content" style="background-color: rgba(255,255,255,0.95); border-radius: 12px; box-shadow: 0 8px 20px rgba(0,0,0,0.2);">
+
+                      <!-- Cabeçalho -->
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="plantaModalLabel{{Planta.id}}">
+                          {{Planta.nomeclatura}} <small class="text-muted">({{Planta.nome}})</small>
+                        </h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+
+                      <!-- Corpo -->
+                      <div class="modal-body">
+                        {% if Planta.imagem %}
+                          <img src="{{Planta.imagem.url}}" class="img-fluid mb-3 rounded" alt="{{Planta.nomeclatura}}">
+                        {% endif %}
+
+                        <ul class="list-group list-group-flush">
+                          <li class="list-group-item"><b>Nome Científico:</b> {{Planta.nomeclatura}}</li>
+                          <li class="list-group-item"><b>Nome Popular:</b> {{Planta.nome}}</li>
+                          <li class="list-group-item"><b>Família:</b> {{Planta.familia}}</li>
+                          <li class="list-group-item"><b>Nutrição:</b> {{Planta.nutricao}}</li>
+                          <li class="list-group-item"><b>Região:</b> {{Planta.regiao}}</li>
+                          <li class="list-group-item">
+                            <b>Nativa:</b>
+                            {% if Planta.nativa %}
+                              ✅ Sim
+                            {% else %}
+                              ❌ Não
+                            {% endif %}
+                          </li>
+                          <li class="list-group-item">
+                            <b>Manejo:</b>
+                             <br>
+                            {% if Planta.manejo %}
+                            <iframe width="560" height="315" src="{{Planta.manejo}}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                            {% else %}
+                              Não informado
+                            {% endif %}
+                          </li>
+                        </ul>
+                      </div>
+
+                      <!-- Rodapé -->
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                      </div>
+
+                    </div>
+                  </div>
                 </div>
-            </div>
-            
+
+
             {% endfor %}
-        </div>
 
+
+        </div>
        
 
         <footer>
