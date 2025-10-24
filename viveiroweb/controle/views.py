@@ -1,5 +1,6 @@
-import uuid
-from django.shortcuts import render , get_list_or_404 
+from statistics import quantiles
+
+from django.shortcuts import render , get_list_or_404
 #from django.contrib.auth.decorators import login_required // isso vai dizer que a rota só pode ser acessada por usuários logados
 from .models import Planta, Reserva, AcaoEnsino
 from django.http import JsonResponse
@@ -72,3 +73,14 @@ def catalogo(request):
     plantas= Planta.objects.order_by('nome')
     plantas_tamanho = len(plantas)
     return render(request, 'catalogo.html', {'plantas': plantas, 'plantas_tamanho': plantas_tamanho})
+
+def pesquisar(request):
+    pesquisa = request.GET.get('pesquisa')
+    if pesquisa:
+        resultados = Planta.objects.filter(nome__icontains=pesquisa)
+        quantidade = len(resultados)
+    else:
+        resultados = Planta.objects.all()
+        quantidade = len(resultados)
+
+    return render(request, 'pesquisa.html', {'resultados': resultados, 'quantidade': quantidade})

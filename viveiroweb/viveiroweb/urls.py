@@ -32,6 +32,7 @@ urlpatterns = [
     path('pesquisa_extensao/', views.pesquisa_extensao, name='pesquisa_extensao'),
     path('sobre/', views.sobre, name='sobre'),
 
+    path('pesquisa/', views.pesquisar, name="pesquisar")
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
