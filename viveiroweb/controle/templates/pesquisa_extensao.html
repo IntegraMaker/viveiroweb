@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-  {% load static %} <!-- Permite carregar itens estáticos aqui. Nesse caso usei para o fundo da página -->
-  <head>
+{% load static %}
+<head>
     <!-- Meta tags Obrigatórias -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -14,11 +14,11 @@
   
     <!-- Seu CSS personalizado (depois) -->
     <link rel="stylesheet" href="{% static 'css/home.css' %}">
-    
-    <title>Viveiro de Mudas</title>
+    <link rel="stylesheet" href="{% static 'css/pesquisa_extensao.css' %}">
 
-  </head>
-  <body>
+    <title>Viveiro de Mudas</title>
+</head>
+<body>
     <div class="p-3 mb-2" style="background-image: url('{% static 'background.png' %}'); background-size: cover; background-position:center;"> <!-- Plano de fundo -->
       <form class="d-flex flex-column flex-md-row align-items-center" role="search"> <!-- Barra de pesquisa -->
           <img src="../static/logo.png" width="200px" style="margin-left: 5%;">
@@ -28,6 +28,7 @@
                 <i class="bi bi-search" ></i> <!-- requer Bootstrap Icons -->
             </button>
           </div>
+          
       </form>
       <br>
       <nav class="navbar navbar-expand-lg" style="background-color: rgba(176, 226, 176, 0.6); border-radius: 10px;"> <!-- Container com links para outras páginas -->
@@ -51,28 +52,25 @@
           </ul>
         </div>
       </nav> 
-      
-
-      <div id="carouselExample" class="carousel slide" style="margin-top: 3%; background-color: rgb(147, 179, 150, 0.5);"> <!-- Carrossel com plantas aleatórias -->
+     <div id="carouselExample" class="carousel slide" style="margin-top: 3%; background-color: rgb(147, 179, 150, 0.5);"> <!-- Carrossel com plantas aleatórias -->
         <div class="carousel-inner" >
 
 
-          {% for planta in plantas|slice:":3" %}
+          {% for acao in acoes|slice:":3" %}
             <div class="carousel-item {% if forloop.counter == 1 %}active{% endif %} "> <!-- Sem altura e largura fixas -->
               <div class="d-flex flex-column flex-md-row align-items-center justify-content-center">
                 <div class="d-flex flex-column flex-md-row align-items-center">
                   <!-- Imagem responsiva -->
-                  <img src="{{ planta.imagem.url }}" alt="{{ planta.nome }}" class="img-fluid" style="max-height: 400px; width: auto;">
+                  <img src="../static/logo.png" alt="{{ acao.nome }}" class="img-fluid" style="max-height: 400px; width: auto;">
             
                   <!-- Nome ao lado -->
                   <div class="text-white rounded p-3 mt-3 mt-md-0 ml-md-3" style="min-width: 250px;">
                     <div class="informacoes_titulo">
-                      <h2>Informações</h2>
+                      <h2>Projeto de {{acao.tipo}}</h2>
                     </div>
-                    <h5>Nome Científico: {{ planta.nomeclatura }}</h5>
-                    <h3>Nome popular: {{ planta.nome }}</h3>
-                    <h5>{{ planta.familia }}</h5>
-                    <a href=".." style="color: black; text-decoration: underline; font-style: italic;">Ler mais sobre esta planta...</a>
+                    <h3>Nome : {{ acao.nome }}</h5>
+                    <h3>Autores: {{ acao.autores }}</h3>
+                    <h5>{{ acao.descricao }}</h5>
                   </div>
                 </div>
               </div>
@@ -91,34 +89,43 @@
         </a>
       </div>
 
-         <!-- Começo da exibição (des)ordenada abaixo do carrossel -->
-        <div class="secao_abaixo rounded align-items-center justify-content-center">
-            {% for Planta in plantas %}
-            <div class="planta_abaixo  p-3 mt-3 mb-3 mt-md-0 ml-md-3" style="min-width: 250px;">
-                <div class="parte_imagem">
-                    <img src="{{ Planta.imagem.url }}" class="img-fluid" style="max-height: 400px; width: auto;">
 
-                </div>
-                <div class="parte_texto ">
-                    <p> {{ Planta.nome }} </p>
-                    <a> {{ Planta.nomeclatura }}</a>
-                    <br>
-                    <br>
-                    <br>
-                    <a> {{ Planta.regiao }}</a>
-                    <br>
-                    <a href=".." style="color: black ;text-decoration: underline; font-style: italic;">Ler mais sobre esta planta...</a>
-                </div>
-            </div>
-            
-            {% endfor %}
+
+
+
+       <main class=" formularioPesquisaExtensao container my-5 flex-grow-1 d-flex justify-content-center align-items-center">
+    <div class=" w-100 p-4" style="max-width:500px;">
+        <br>
+        <h2 class="text-center mb-4"> Registrar Projeto</h2>
+    <form action="{% url 'enviar_acao' %}" method="get">
+        <div class="form-group">
+            <input type="text" class="form-control  form-control-lg" placeholder="nome do projeto" aria-label="nome" aria-describedby="button-addon2" name="nome" required>
         </div>
+        <div class="form-group">
+            <input type="text" class="form-control  form-control-lg" placeholder="autores" aria-label="autores" aria-describedby="button-addon2" name="autores" required>
+        </div>
+       <div class="input-group mb-3 ">
+            <select class="form-select form-control-lg text-muted w-100" id="inputGroupSelect02" name="motivo" required>
+                <option selected class="text-muted">tipo de projeto</option>
+                <option value="pesquisa" class="text-dark">Pesquisa</option>
+                <option value="extensao" class="text-dark">Extensão</option>
+                <option value="artigo_cientifico" class="text-dark">Artigo Científico</option>
+            </select>
+        </div>
+         <div class="form-group">
+            <input type="text" class="form-control  form-control-lg" placeholder="descrição do projeto" aria-label="Descrição do projeto" aria-describedby="button-addon2" name="descricao" required>
+        </div>
+        <div class="text-center">
+            <button type="submit"  class="btn btn-reservar px-5 py-2">Enviar</button>
+        </div>
+    </form>
 
-       
-
-        <footer>
+      <br><br>
+    </div>
+  </main>
+      <footer>
           <div class="rodape">
-            <a href="/sobre">Sobre nós</a>
+            <a href="..">Sobre nós</a>
             <br><br>
             <a href="..">Doe para o viveiro</a>
             <br><br>
@@ -126,12 +133,11 @@
           </div>
         </footer>
 
-    </div>
 
-    <!-- JavaScript (Opcional) -->
+         <!-- JavaScript (Opcional) -->
     <!-- jQuery primeiro, depois Popper.js, depois Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-  </body>
+</body>
 </html>

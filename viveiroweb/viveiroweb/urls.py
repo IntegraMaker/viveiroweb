@@ -25,9 +25,13 @@ urlpatterns = [
     path('',  views.home, name='home'),
     path('formulario_uso_viveiro/', views.formulario_uso_viveiro, name='formulario_uso_viveiro'),
     path('enviar_reserva/', views.enviar_reserva, name='enviar_reserva'),
+    path('enviar_acao/', views.enviar_acao, name='enviar_acao'),
     path('',  views.home, name='home'),
     path('catalogo/', views.catalogo),
     path('dias_ocupados/', views.dias_ocupados, name='dias_ocupados'),
+    path('pesquisa_extensao/', views.pesquisa_extensao, name='pesquisa_extensao'),
+    path('sobre/', views.sobre, name='sobre'),
+
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
