@@ -21,10 +21,10 @@
   </head>
   <body>
     <div class="p-3 mb-2" style="background-image: url('{% static 'background.png' %}'); background-size: cover; background-position:center;"> <!-- Plano de fundo -->
-      <form class="d-flex flex-column flex-md-row align-items-center" role="search"> <!-- Barra de pesquisa -->
-          <img src="../static/logo.png" width="200px" style="margin-left: 5%;">
+      <form class="d-flex flex-column flex-md-row align-items-center" role="search" action="{% url 'pesquisar' %}"> <!-- Barra de pesquisa -->
+          <a href="/" style="margin-left: 5%;"><img src="../static/logo.png" width="200px"></a>
           <div class="input-group mb-3" style="margin-left: 10%; margin-top: 40px; width: 50%;">
-            <input type="text" class="form-control" placeholder="Buscar por nome" aria-label="Buscar por nome" aria-describedby="button-addon2">
+            <input name="pesquisa" type="text" class="form-control" placeholder="Buscar por nome" aria-label="Buscar por nome" aria-describedby="button-addon2">
             <button class="btn btn-secondary" type="submit">
                 <i class="bi bi-search" ></i> <!-- requer Bootstrap Icons -->
             </button>
@@ -36,9 +36,6 @@
           <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
             <li class="nav-item">
               <a class="nav-link active custom-text fw-bold" aria-current="page" href="/catalogo">Catálogo de Plantas</a>
-            </li>
-            <li class="nav-item mx-4">
-              <a class="nav-link custom-text" href="#">Manejo de Plantas</a>
             </li>
             <li class="nav-item mx-4">
               <a class="nav-link custom-text" href="#">Técnicos</a>
@@ -118,7 +115,7 @@
 
         <footer>
           <div class="rodape">
-            <a href="..">Sobre nós</a>
+            <a href="/sobre">Sobre nós</a>
             <br><br>
             <a href="..">Doe para o viveiro</a>
             <br><br>

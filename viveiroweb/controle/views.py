@@ -1,6 +1,7 @@
 from statistics import quantiles
 
-from django.shortcuts import render , get_list_or_404
+
+from django.shortcuts import redirect, render , get_list_or_404
 #from django.contrib.auth.decorators import login_required // isso vai dizer que a rota só pode ser acessada por usuários logados
 from .models import Planta, Reserva, AcaoEnsino
 from django.http import JsonResponse
@@ -15,8 +16,11 @@ def formulario_uso_viveiro(request):
     return render(request, 'formulario_uso_viveiro.html')
 
 def pesquisa_extensao(request):
-    acoes = AcaoEnsino.objects.order_by('?')[:12]
-    return render(request, 'pesquisa_extensao.html', {'acoes': acoes})
+    acoes = AcaoEnsino.objects.filter(aceito=True)
+
+    # Seleciona 12 aleatórias
+    acoes_aleatorias = acoes.order_by('?')[:12]
+    return render(request, 'pesquisa_extensao.html', {'acoes': acoes, 'acoes_aleatorias': acoes_aleatorias})
 
 def sobre(request):
     return render(request, 'sobreNos.html')
@@ -50,14 +54,14 @@ def enviar_acao(request):
         autores = request.GET.get('autores')
         # Cria e salva a ação
         AcaoEnsino.objects.create(
-            id=uuid.uuid4(),
+           
             tipo=tipo,
             nome=nome,
             autores=autores,
             descricao=descricao
         )
         # Redireciona ou renderiza uma página de sucesso
-        return render(request, 'pesquisa_extensao.html', {'mensagem': 'Ação enviada com sucesso!'})
+        return redirect('pesquisa_extensao')  # use o nome da sua URL
 
 def dias_ocupados(request):
     pendentes = Reserva.objects.filter(aceito=False).values_list("data", flat=True)
