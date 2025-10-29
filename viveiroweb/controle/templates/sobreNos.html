@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  {% load static %} <!-- Permite carregar itens estáticos aqui. Nesse caso usei para o fundo da página -->
+  <head>
+    <!-- Meta tags Obrigatórias -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <!-- Bootstrap CSS (primeiro) -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css">
+  
+    <!-- Seu CSS personalizado (depois) -->
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+    <link rel="stylesheet" href="{% static 'css/sobreNos.css' %}">
+    
+    <title>Viveiro de Mudas</title>
+
+  </head>
+  <body>
+    <div class="p-3 mb-2" style="background-image: url('{% static 'background.png' %}'); background-size: cover; background-position:center;"> <!-- Plano de fundo -->
+      <form class="d-flex flex-column flex-md-row align-items-center" role="search" action="{% url 'pesquisar' %}"> <!-- Barra de pesquisa -->
+          <a href="/" style="margin-left: 5%;"><img src="../static/logo.png" width="200px"></a>
+          <div class="input-group mb-3" style="margin-left: 10%; margin-top: 40px; width: 50%;">
+            <input name="pesquisa" type="text" class="form-control" placeholder="Buscar por nome" aria-label="Buscar por nome" aria-describedby="button-addon2">
+            <button class="btn btn-secondary" type="submit">
+                <i class="bi bi-search" ></i> <!-- requer Bootstrap Icons -->
+            </button>
+          </div>
+      </form>
+      <br>
+      <nav class="navbar navbar-expand-lg" style="background-color: rgba(176, 226, 176, 0.6); border-radius: 10px;"> <!-- Container com links para outras páginas -->
+        <div class="container-fluid">
+          <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link active custom-text fw-bold" aria-current="page" href="/catalogo">Catálogo de Plantas</a>
+            </li>
+            <li class="nav-item mx-4">
+              <a class="nav-link custom-text" href="#">Técnicos</a>
+            </li>
+             <li class="nav-item mx-4">
+              <a class="nav-link custom-text" href="/formulario_uso_viveiro">Reserva do Viveiro</a>
+            </li>
+             <li class="nav-item mx-4">
+              <a class="nav-link custom-text" href="/pesquisa_extensao">Projetos de Pesquisa e Extensão</a>
+            </li>
+          </ul>
+        </div>
+      </nav> 
+      <br> <br>
+
+      <div class="row align-items-center">
+    <div class=" sobre col-md-6 mb-4 mb-md-0 pl-md-4 pl-3"> 
+        
+        <h1 class="mb-3">Sobre Nós</h1>
+
+        <p>
+            Nosso site foi criado para conectar pessoas e ideias. 
+            Acreditamos no poder da tecnologia para transformar o mundo 
+            e tornar o conhecimento acessível a todos.
+        </p>
+        <p>
+            A equipe é formada por desenvolvedores e designers apaixonados 
+            por inovação e impacto social. Buscamos sempre entregar o melhor 
+            em cada projeto.
+        </p>
+    </div>
+    <div class="col-md-6 text-center">
+        <img src="{% static 'if.png' %}" 
+             alt="Equipe" class="img-fluid rounded shadow-lg about-image">
+    </div>
+</div>
+
+<hr class="my-5">
+<h2 class="mb-4">Nossa Equipe</h2>
+<div class="row text-center">
+    
+    <br><br>
+    <div class="col-md-4">
+        <div class="card border-0 p-3">
+            <img src="https://cdn-icons-png.flaticon.com/512/924/924915.png" 
+                 class="img-fluid rounded-circle w-50 mx-auto mb-3" alt="">
+            <h5>Luís Silva</h5>
+            <p class="text-muted">Desenvolvedor Backend</p>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card border-0 shadow-sm p-3">
+            <img src="https://cdn-icons-png.flaticon.com/512/219/219969.png" 
+                 class="img-fluid rounded-circle w-50 mx-auto mb-3" alt="">
+            <h5>Ana Souza</h5>
+            <p class="text-muted">Designer UI/UX</p>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card border-0 shadow-sm p-3">
+            <img src="https://cdn-icons-png.flaticon.com/512/921/921071.png" 
+                 class="img-fluid rounded-circle w-50 mx-auto mb-3" alt="">
+            <h5>Rafael Lima</h5>
+            <p class="text-muted">Pesquisador e Analista</p>
+        </div>
+    </div>
+</div>
+<br> <br>
+
+
+
+
+
+
+
+
+
+        <footer>
+          <div class="rodape">
+            <a href="/sobre">Sobre nós</a>
+            <br><br>
+            <a href="..">Doe para o viveiro</a>
+            <br><br>
+            <a href="..">Site IFPB</a>
+          </div>
+        </footer>
+
+      </div>

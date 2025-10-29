@@ -1,8 +1,5 @@
 body {
-    background-image: url('/static/background.png');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
+   
     min-height: 100vh;
 
     display: flex;
@@ -63,6 +60,7 @@ body {
   border-radius: .5rem;
   cursor: pointer;
 }
+
 
 
 /* Responsividade */

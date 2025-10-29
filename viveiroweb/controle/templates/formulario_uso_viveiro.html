@@ -18,7 +18,7 @@
   </head>
   <body>
       
-
+      <div class="p-3 mb-2" style="background-image: url('{% static 'background.png' %}'); background-size: cover; background-position:center;"> <!-- Plano de fundo -->
 
       <form class="d-flex flex-column flex-md-row align-items-center" role="search" action="{% url 'pesquisar' %}"> <!-- Barra de pesquisa -->
           <a href="/" style="margin-left: 5%;"><img src="../static/logo.png" width="200px"></a>
@@ -30,21 +30,24 @@
           </div>
       </form>
       <br>
-      <nav class="navbar navbar-expand-lg" style="background-color: rgba(176, 226, 176, 0.6); border-radius: 10px;"> <!-- Container com links para outras páginas -->
+     <nav class="navbar navbar-expand-lg" style="background-color: rgba(176, 226, 176, 0.6); border-radius: 10px;"> <!-- Container com links para outras páginas -->
         <div class="container-fluid">
           <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
             <li class="nav-item">
-              <a class="nav-link active custom-text fw-bold text-white" aria-current="page" href="/catalogo">Catálogo de Plantas</a>
+              <a class="nav-link active custom-text fw-bold" aria-current="page" href="/catalogo">Catálogo de Plantas</a>
             </li>
             <li class="nav-item mx-4">
-              <a class="nav-link custom-text text-white" href="#">Técnicos</a>
+              <a class="nav-link custom-text" href="#">Técnicos</a>
             </li>
              <li class="nav-item mx-4">
-              <a class="nav-link custom-text text-white" href="/formulario_uso_viveiro">Reserva do Viveiro</a>
+              <a class="nav-link custom-text" href="/formulario_uso_viveiro">Reserva do Viveiro</a>
+            </li>
+             <li class="nav-item mx-4">
+              <a class="nav-link custom-text" href="/pesquisa_extensao">Projetos de Pesquisa e Extensão</a>
             </li>
           </ul>
         </div>
-      </nav>
+      </nav> 
       <br>
       <a href="/" style="margin-top: 50px; color: white; margin-left: 50px;"> < Voltar para a página principal</a>
 
@@ -86,7 +89,17 @@
     </form>
 
     </main>
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+
+    <footer>
+          <div class="rodape">
+            <a href="/sobre">Sobre nós</a>
+            <br><br>
+            <a href="..">Doe para o viveiro</a>
+            <br><br>
+            <a href="..">Site IFPB</a>
+          </div>
+    </footer>
+    </div> <!-- fecha o plano de fundo -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 
@@ -96,8 +109,9 @@
 
     <script>
 $(document).ready(function() { 
-    $.getJSON("{% url 'dias_ocupados' %}", function(data) {
-        let ocupados = data.ocupados;
+    $.getJSON("{% url 'dias_ocupados' %}", function(data) {  // busca as datas ocupadas do backend 
+        let pendentes = data.pendentes; // amarelo
+        let aprovados = data.aprovados; // verde
 
         $('#calendario').datepicker({
             format: 'yyyy-mm-dd',
@@ -105,19 +119,26 @@ $(document).ready(function() {
             todayHighlight: true,
             beforeShowDay: function(date) {
                 let d = date.toISOString().split('T')[0];
-                if (ocupados.includes(d)) {
+
+                if (aprovados.includes(d)) {
                     return {
                         enabled: false,
-                        classes: 'bg-danger  text-center text-white',
-                        tooltip: 'Data já reservada'
+                        classes: 'bg-success text-white text-center',
+                        tooltip: 'Data reservada'
+                        
+
+                    };
+                }
+                if (pendentes.includes(d)) {
+                    return {
+                        classes: 'bg-warning text-dark text-center',
+                        tooltip: 'Data pendente de aprovação'
                     };
                 }
                 return true;
             }
         }); 
     });
-    
 });
-
 </script>
   </body>

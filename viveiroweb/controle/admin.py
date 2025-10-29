@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.db import models #upload de imagens
-from .models import Planta, Reserva, acao_ensino
+from .models import Planta, Reserva, AcaoEnsino
 
 # Register your models here.
 @admin.register(Planta)
@@ -13,12 +13,14 @@ class PlantaAdmin(admin.ModelAdmin):
 @admin.register(Reserva)
 class ReservaAdmin(admin.ModelAdmin):
     list_display = ('id', 'nome', 'data', 'motivo', 'descricao', 'aceito', 'email', 'telefone')
+    list_editable = ("aceito",)  # permite editar o campo diretamente da lista
     search_fields = ('nome', 'data', 'motivo')
     list_filter = ('data',)
     ordering = ('data',)
 
-@admin.register(acao_ensino)
-class acao_ensinoAdmin(admin.ModelAdmin):
-    list_display = ('id', 'tipo')
-    search_fields = ('tipo',)
+@admin.register(AcaoEnsino)
+class AcaoEnsinoAdmin(admin.ModelAdmin):
+    list_display = ('id', 'tipo', 'nome', 'descricao', 'aceito')
+    list_editable = ("aceito",) 
+    search_fields = ('tipo', 'nome')
     ordering = ('tipo',)
