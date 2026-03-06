@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   web:
     build: .
@@ -7,8 +5,7 @@ services:
     ports:
       - "8000:8000"
     volumes:
-      # Conteúdo da pasta viveiroweb vira /app no container (manage.py em /app/manage.py)
-      - ./viveiroweb:/app
+      # Sem montar o código: usa o que foi copiado no build (manage.py em /app)
       # Persiste o banco de dados SQLite
       - ./viveiroweb/db.sqlite3:/app/db.sqlite3
       # Persiste as imagens enviadas
