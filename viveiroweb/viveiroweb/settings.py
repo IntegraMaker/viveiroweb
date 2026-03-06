@@ -32,6 +32,7 @@ ALLOWED_HOSTS = ['localhost',
                 'integramaker.ifpb.edu.br',
                 '200.129.71.149']
 
+FORCE_SCRIPT_NAME = "/viveiroweb"
 
 # Application definition
 
