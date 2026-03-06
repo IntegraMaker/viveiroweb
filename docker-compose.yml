@@ -21,7 +21,7 @@ services:
     labels:
       - "traefik.enable=true"
       # Expor por caminho (sem subdomínio): https://SEU_DOMINIO/viveiroweb
-      - "traefik.http.routers.viveiroweb.rule=Host(`integramaker.ifpb.edu.br`) && (PathPrefix(`/viveiroweb`) || Path(`/viveiroweb`))"
+      - "traefik.http.routers.viveiroweb.rule=Host(`integramaker.ifpb.edu.br`) && (PathPrefix(`/viveiroweb`)" # || Path(`/viveiroweb`))"
       - "traefik.http.routers.viveiroweb.entrypoints=websecure"
       - "traefik.http.routers.viveiroweb.tls=true"
       - "traefik.http.routers.viveiroweb.tls.certresolver=le"
