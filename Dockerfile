@@ -22,7 +22,7 @@ ENV PYTHONUNBUFFERED=1
 ENV DJANGO_SETTINGS_MODULE=viveiroweb.settings
 
 # Cria diretórios para static files e media
-RUN mkdir -p /app/staticfiles /app/imagens/media
+RUN mkdir -p /app/static /app/imagens/media
 
 # Expõe a porta 8000
 EXPOSE 8000
