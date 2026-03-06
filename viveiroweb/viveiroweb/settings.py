@@ -26,7 +26,11 @@ SECRET_KEY = 'django-insecure-@!5trqi*!pctt=wsdgjya1bx9h)rixue0=3g_rgy+muu27+jz)
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', '192.168.68.55']
+ALLOWED_HOSTS = ['localhost', 
+                '127.0.0.1', 
+                '192.168.68.55', 
+                'integramaker.ifpb.edu.br',
+                '200.129.71.149']
 
 
 # Application definition
@@ -117,6 +121,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = BASE_DIR / "staticfiles"
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'imagens')
 MEDIA_URL = '/imagens/'
