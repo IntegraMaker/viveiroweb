@@ -21,3 +21,20 @@ services:
              python manage.py collectstatic --noinput &&
              python manage.py runserver 0.0.0.0:8000"
     restart: unless-stopped
+    labels:
+      - "traefik.enable=true"
+      # Expor por caminho (sem subdomínio): https://SEU_DOMINIO/viveiroweb
+      - "traefik.http.routers.viveiroweb.rule=Host(`integramaker.ifpb.edu.br`) && (PathPrefix(`/viveiroweb`) || Path(`/viveiroweb`))"
+      - "traefik.http.routers.viveiroweb.entrypoints=websecure"
+      - "traefik.http.routers.viveiroweb.tls=true"
+      - "traefik.http.routers.viveiroweb.tls.certresolver=le"
+      - "traefik.http.middlewares.viveiroweb-stripprefix.stripprefix.prefixes=/viveiroweb"
+      - "traefik.http.routers.viveiroweb.middlewares=viveiroweb-stripprefix@docker"
+      - "traefik.http.services.viveiroweb.loadbalancer.server.port=8000"
+      - "traefik.docker.network=proxy"
+    networks:
+      - proxy
+
+networks:
+  proxy:
+    external: true
