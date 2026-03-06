@@ -7,7 +7,7 @@ services:
     ports:
       - "8000:8000"
     volumes:
-      # Monta o código para desenvolvimento (comentado para produção)
+      # Conteúdo da pasta viveiroweb vira /app no container (manage.py em /app/manage.py)
       - ./viveiroweb:/app
       # Persiste o banco de dados SQLite
       - ./viveiroweb/db.sqlite3:/app/db.sqlite3
