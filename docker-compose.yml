@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  web:
+    build: .
+    container_name: viveiroweb
+    ports:
+      - "8000:8000"
+    volumes:
+      # Monta o código para desenvolvimento (comentado para produção)
+      - ./viveiroweb:/app
+      # Persiste o banco de dados SQLite
+      - ./viveiroweb/db.sqlite3:/app/db.sqlite3
+      # Persiste as imagens enviadas
+      - ./viveiroweb/imagens:/app/imagens
+    environment:
+      - DEBUG=True
+      - DJANGO_SETTINGS_MODULE=viveiroweb.settings
+    command: >
+      sh -c "python manage.py migrate &&
+             python manage.py collectstatic --noinput &&
+             python manage.py runserver 0.0.0.0:8000"
+    restart: unless-stopped
