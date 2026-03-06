@@ -30,5 +30,5 @@ EXPOSE 8000
 # Define o diretório de trabalho para onde está o manage.py
 WORKDIR /app
 
-# Comando para executar a aplicação
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+# Comando para executar a aplicação com Gunicorn
+CMD ["gunicorn", "viveiroweb.wsgi:application", "--bind", "0.0.0.0:8000", "--workers", "3"]
