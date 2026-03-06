@@ -7,9 +7,9 @@ services:
     volumes:
       # Sem montar o código: usa o que foi copiado no build (manage.py em /app)
       # Persiste o banco de dados SQLite
-      - ./viveiroweb/db.sqlite3:/app/db.sqlite3
+      - ./viveiroweb/db.sqlite3:/db.sqlite3
       # Persiste as imagens enviadas
-      - ./viveiroweb/imagens:/app/imagens
+      - ./viveiroweb/imagens:/imagens
     environment:
       - DEBUG=True
       - DJANGO_SETTINGS_MODULE=viveiroweb.settings
